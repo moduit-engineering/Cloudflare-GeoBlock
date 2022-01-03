@@ -1,0 +1,13 @@
+displayName: Cloudflare GeoBlock
+type: middleware
+
+import: github.com/traefik/plugindemo
+
+summary: 'Whitelist IP Geolocation and IP Blacklist(soon) from Cloudflare'
+
+testData:
+  Headers:
+    whitelistCountry: 
+      - ID
+      - SG
+    disabled: false
