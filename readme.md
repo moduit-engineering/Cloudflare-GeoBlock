@@ -42,8 +42,6 @@ http:
     my-plugin:
       plugin:
         cfgeoblock:
-          whitelistCountry:
-            - ID
-            - SG
+          whitelistCountry: ["ID", "SG"]
           disabled: false #optional
 ```

@@ -1,7 +1,7 @@
 displayName: Cloudflare GeoBlock
 type: middleware
 
-import: github.com/moduit-engineering/cloudflare-geoblock
+import: github.com/moduit-engineering/cfgeoblock
 
 summary: 'Whitelist IP Geolocation from Cloudflare'
 

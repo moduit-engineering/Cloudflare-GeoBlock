@@ -1,3 +1,3 @@
-module github.com/moduit-engineering/cloudflare-geoblock
+module github.com/moduit-engineering/cfgeoblock
 
 go 1.15
