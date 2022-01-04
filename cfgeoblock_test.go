@@ -1,17 +1,10 @@
-package cfgeoblock_test
+package cfgeoblock
 
 import (
 	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	cloudflarerules "traefik-plugin"
-)
-
-const (
-	forwardedFor   = "X-Forwarded-For"
-	cfConnectingIP = "Cf-Connecting-Ip"
-	ipCountry      = "Cf-Ipcountry"
 )
 
 func allowedCountries() []string {
@@ -100,19 +93,21 @@ func TestEmptyGeolocation(t *testing.T) {
 	assertStatusEqual(t, recorder, req, 403)
 }
 
-func setupHandler(ctx context.Context, t *testing.T, next http.HandlerFunc, cfg *cloudflarerules.Config) (http.Handler, error) {
+func setupHandler(ctx context.Context, t *testing.T, next http.HandlerFunc, cfg *Config) (http.Handler, error) {
 	t.Helper()
 
-	handler, err := cloudflarerules.New(ctx, next, cfg, "cloudflare-rules")
+	handler, err := New(ctx, next, cfg, "cloudflare-rules")
 	if err != nil {
 		t.Fatal(err)
 	}
 	return handler, err
 }
 
-func setupConfig() *cloudflarerules.Config {
-	cfg := cloudflarerules.CreateConfig()
-	cfg.WhitelistCountry = allowedCountries()
+func setupConfig() *Config {
+	cfg := &Config{
+		WhitelistCountry: allowedCountries(),
+	}
+
 	return cfg
 }
 
