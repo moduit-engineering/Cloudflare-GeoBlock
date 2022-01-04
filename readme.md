@@ -20,7 +20,7 @@ experimental:
   plugins:
     example:
       moduleName: github.com/moduit-engineering/cloudflare-geoblock
-      version: v0.1.0
+      version: v0.1.2
 ```
 
 Dynamic Configuration:
