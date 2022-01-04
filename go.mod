@@ -1,3 +1,3 @@
-module cfgeoblock
+module github.com/moduit-engineering/cloudflare-geoblock
 
-go 1.14
+go 1.15
