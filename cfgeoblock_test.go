@@ -1,4 +1,4 @@
-package cloudflare_geoblock_test
+package cfgeoblock_test
 
 import (
 	"context"
@@ -24,7 +24,7 @@ func TestAllowedCountries(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, _ := setupHandler(t, ctx, next, cfg)
+	handler, _ := setupHandler(ctx, t, next, cfg)
 	recorder := httptest.NewRecorder()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "http://localhost", nil)
@@ -45,7 +45,7 @@ func TestNotAllowedCountries(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, _ := setupHandler(t, ctx, next, cfg)
+	handler, _ := setupHandler(ctx, t, next, cfg)
 	recorder := httptest.NewRecorder()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "http://localhost", nil)
@@ -66,7 +66,7 @@ func TestDisabledConfig(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, _ := setupHandler(t, ctx, next, cfg)
+	handler, _ := setupHandler(ctx, t, next, cfg)
 	recorder := httptest.NewRecorder()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "http://localhost", nil)
@@ -87,7 +87,7 @@ func TestEmptyGeolocation(t *testing.T) {
 	ctx := context.Background()
 	next := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {})
 
-	handler, _ := setupHandler(t, ctx, next, cfg)
+	handler, _ := setupHandler(ctx, t, next, cfg)
 	recorder := httptest.NewRecorder()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, "http://localhost", nil)
@@ -100,7 +100,7 @@ func TestEmptyGeolocation(t *testing.T) {
 	assertStatusEqual(t, recorder, req, 403)
 }
 
-func setupHandler(t *testing.T, ctx context.Context, next http.HandlerFunc, cfg *cloudflarerules.Config) (http.Handler, error) {
+func setupHandler(ctx context.Context, t *testing.T, next http.HandlerFunc, cfg *cloudflarerules.Config) (http.Handler, error) {
 	handler, err := cloudflarerules.New(ctx, next, cfg, "cloudflare-rules")
 	if err != nil {
 		t.Fatal(err)
@@ -115,6 +115,8 @@ func setupConfig() *cloudflarerules.Config {
 }
 
 func assertStatusEqual(t *testing.T, recorder *httptest.ResponseRecorder, req *http.Request, status int) {
+	t.Helper()
+	
 	res := recorder.Result()
 	if res.StatusCode != status {
 		t.Errorf("invalid status: %s", req.Response.Status)
@@ -122,6 +124,8 @@ func assertStatusEqual(t *testing.T, recorder *httptest.ResponseRecorder, req *h
 }
 
 func assertHeaderForwardedFor(t *testing.T, req *http.Request) {
+	t.Helper()
+	
 	fwd := req.Header.Get(forwardedFor)
 	if fwd != "http://localhost" {
 		t.Errorf("invalid forwarded for: %s", fwd)
