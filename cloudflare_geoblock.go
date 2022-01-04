@@ -12,25 +12,21 @@ const (
 	ipCountry      = "Cf-Ipcountry"
 )
 
-// Config the plugin configuration.
 type Config struct {
 	WhitelistCountry []string `json:"whitelistCountry" toml:"whitelistCountry" yaml:"whitelistCountry"`
 	Disabled         bool     `json:"disabled" toml:"disabled" yaml:"disabled"`
 }
 
-// CreateConfig creates the default plugin configuration.
 func CreateConfig() *Config {
 	return &Config{}
 }
 
-// CloudflareRules a Demo plugin.
 type CloudflareRules struct {
 	next             http.Handler
 	WhitelistCountry []string
 	Disabled         bool
 }
 
-// New created a new Demo plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	return &CloudflareRules{
 		next:             next,
