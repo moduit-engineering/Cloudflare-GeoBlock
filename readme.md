@@ -41,8 +41,9 @@ http:
   middlewares:
     my-plugin:
       plugin:
-        whitelistCountry:
-          - ID
-          - SG
-        disabled: false #optional
+        cfgeoblock:
+          whitelistCountry:
+            - ID
+            - SG
+          disabled: false #optional
 ```
