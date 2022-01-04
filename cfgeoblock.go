@@ -12,25 +12,25 @@ const (
 	ipCountry      = "Cf-Ipcountry"
 )
 
-// Config for interact with traefik config
+// Config for interact with traefik config.
 type Config struct {
 	WhitelistCountry []string `json:"whitelistCountry" toml:"whitelistCountry" yaml:"whitelistCountry"`
 	Disabled         bool     `json:"disabled" toml:"disabled" yaml:"disabled"`
 }
 
-// CreateConfig create config data for the plugin
+// CreateConfig create config data for the plugin.
 func CreateConfig() *Config {
 	return &Config{}
 }
 
-// CloudflareRules config struct for the plugin
+// CloudflareRules config struct for the plugin.
 type CloudflareRules struct {
 	next             http.Handler
 	WhitelistCountry []string
 	Disabled         bool
 }
 
-// New constructor for this plugin
+// New constructor for this plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	return &CloudflareRules{
 		next:             next,

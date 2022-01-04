@@ -101,6 +101,8 @@ func TestEmptyGeolocation(t *testing.T) {
 }
 
 func setupHandler(ctx context.Context, t *testing.T, next http.HandlerFunc, cfg *cloudflarerules.Config) (http.Handler, error) {
+	t.Helper()
+
 	handler, err := cloudflarerules.New(ctx, next, cfg, "cloudflare-rules")
 	if err != nil {
 		t.Fatal(err)
@@ -116,7 +118,7 @@ func setupConfig() *cloudflarerules.Config {
 
 func assertStatusEqual(t *testing.T, recorder *httptest.ResponseRecorder, req *http.Request, status int) {
 	t.Helper()
-	
+
 	res := recorder.Result()
 	if res.StatusCode != status {
 		t.Errorf("invalid status: %s", req.Response.Status)
@@ -125,7 +127,7 @@ func assertStatusEqual(t *testing.T, recorder *httptest.ResponseRecorder, req *h
 
 func assertHeaderForwardedFor(t *testing.T, req *http.Request) {
 	t.Helper()
-	
+
 	fwd := req.Header.Get(forwardedFor)
 	if fwd != "http://localhost" {
 		t.Errorf("invalid forwarded for: %s", fwd)
