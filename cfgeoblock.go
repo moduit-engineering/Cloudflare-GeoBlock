@@ -15,7 +15,7 @@ const (
 // Config for interact with traefik config.
 type Config struct {
 	WhitelistCountry []string `json:"whitelistCountry" toml:"whitelistCountry" yaml:"whitelistCountry"`
-	Disabled         bool     `json:"disabled" toml:"disabled" yaml:"disabled"`
+	Disabled         bool     `json:"disabled,omitempty" toml:"disabled,omitempty" yaml:"disabled,omitempty"`
 }
 
 // CreateConfig create config data for the plugin.

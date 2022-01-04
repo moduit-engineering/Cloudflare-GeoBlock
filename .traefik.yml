@@ -6,7 +6,5 @@ import: github.com/moduit-engineering/cloudflare-geoblock
 summary: 'Whitelist IP Geolocation from Cloudflare'
 
 testData:
-  whitelistCountry:
-    - ID
-    - SG
+  whitelistCountry: ["ID", "SG"]
   disabled: false
