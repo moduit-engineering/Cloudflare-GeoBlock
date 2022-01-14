@@ -1,4 +1,3 @@
-// Package cfgeoblock block or allow traffic from Cloudflare Geolocation.
 package cfgeoblock
 
 import (

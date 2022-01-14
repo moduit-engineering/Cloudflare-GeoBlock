@@ -19,7 +19,7 @@ pilot:
 experimental:
   plugins:
     example:
-      moduleName: github.com/moduit-engineering/cloudflare-geoblock
+      moduleName: github.com/moduit-engineering/cfgeoblock
       version: v0.1.4
 ```
 
